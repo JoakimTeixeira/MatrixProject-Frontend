@@ -114,4 +114,27 @@ QUnit.module( "Informações sobre notas dos Participantes", function() {
     var resultado = sistema.obterMediaDasNotasDosParticipantes();
     assert.equal( resultado, 80, "média dos participantes");    
   });
+
+  //meu teste
+  QUnit.module( "Buscar Participantes - versão Joakim", function() {
+    var sistema = new SistemaCadastro();
+      sistema.adicionarParticipante("João", "Mendes", "jmendes@matrix.com", 56, 1);
+      sistema.adicionarParticipante("Carla", "Mendes", "cmendes@matrix.com", 26, 2);
+      sistema.adicionarParticipante("Joyce", "Costa", "jcosta@matrix.com", 28, 2);
+      sistema.adicionarParticipante("Marcelo", "Coelho", "mcoelho@matrix.com", 62, 1);
+      sistema.adicionarParticipante("Silvio", "Santos", "silsantos@matrix.com", 35, 1);
+
+      QUnit.test( "obter quantidade de participantes por sexo", function( assert ) {
+        var resultado = sistema.obterQuantidadeDeParticipantesPorSexo(1);
+        assert.equal( resultado, 3, "Homens: Três registros retornados");   
+        
+        var resultado = sistema.obterQuantidadeDeParticipantesPorSexo(2);
+        assert.equal( resultado, 2, "Mulheres: Dois registros retornados");
+
+        sistema.removerParticipante("jmendes@matrix.com");
+
+        var resultado = sistema.obterQuantidadeDeParticipantesPorSexo(1);
+        assert.equal( resultado, 2, "Homens: Dois registros retornados");
+      });
+  });
 });
