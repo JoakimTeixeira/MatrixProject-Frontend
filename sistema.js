@@ -21,49 +21,120 @@ function SistemaCadastro() {
 
     function adicionarParticipante(nome, sobrenome, email, idade, sexo) {
         //implemente o código necessário
-        var p = new Participante();
-        p.nome = nome;
-        p.sobrenome = sobrenome;
-        p.email = email;
-        p.idade = idade;
-        p.sexo = sexo;
+        if (obterParticipante(email) === undefined){
+            var p = new Participante();
+            p.nome = nome;
+            p.sobrenome = sobrenome;
+            p.email = email;
+            p.idade = idade;
+            p.sexo = sexo;
 
-        participantes.push(p);
+            participantes.push(p);
+        }
+        else
+            throw ("Este email já existe: " + email);
     }
 
     function removerParticipante(email) {
-        //implemente o código necessário       
+        //implemente o código necessário
+        for(let i = 0; i < participantes.length; i++){
+            if (participantes[i].email === email){
+                participantes.splice(i, 1);
+            }
+        }      
     }
     function buscarParticipantesPorNome(nome){
         //implemente o código necessário
+        var listaParticipantesPorNome = [];
+        for(let i = 0; i < participantes.length; i++){            
+            if (participantes[i].nome === nome){
+                listaParticipantesPorNome.push(participantes[i]);
+            }
+        }          
+        return listaParticipantesPorNome;
     }    
     function buscarParticipantesPorSexo(sexo){
         //implemente o código necessário
+        var listaParticipantesPorSexo = [];
+        for(let i = 0; i < participantes.length; i++){ 
+            if (participantes[i].sexo === sexo){                
+                listaParticipantesPorSexo.push(participantes[i]); 
+            }
+        }  
+        return listaParticipantesPorSexo;
     }
     function buscarParticipantesAprovados(){
         //implemente o código necessário
+        var listaParticipantesAprovados = [];
+        for(let i = 0; i < participantes.length; i++){
+            if(verificarSeParticipanteEstaAprovado(participantes[i].email) == true){
+                listaParticipantesAprovados.push(participantes[i]);
+            }          
+        }        
+        return listaParticipantesAprovados;
     }
     function buscarParticipantesReprovados(){
         //implemente o código necessário
+        var listaParticipantesReprovados = [];  
+        for(let i = 0; i < participantes.length; i++){
+            if(verificarSeParticipanteEstaAprovado(participantes[i].email) == false){
+                listaParticipantesReprovados.push(participantes[i]);
+            }          
+        }        
+        return listaParticipantesReprovados;     
     }
     function obterParticipante(email){
         //implemente o código necessário
+        for(let i = 0; i < participantes.length; i++){
+            if (participantes[i].email === email){
+                return participantes[i];
+            }
+        }
     }
     function adicionarNotaAoParticipante(email, nota){
-        //implemente o código necessário
+        //implemente o código necessário   
+        for(let i = 0; i < participantes.length; i++){
+            if(participantes[i].email === email){
+                participantes[i].nota = nota;
+            }
+        }
+         
     }
     function obterMediaDasNotasDosParticipantes(){
         //implemente o código necessário
+        var mediaDosParticipantes = 0;
+        var totalAlunosComNota = 0;
+        for(let i = 0; i < participantes.length; i++){
+                mediaDosParticipantes += participantes[i].nota;
+                totalAlunosComNota ++;
+        }
+        return mediaDosParticipantes / totalAlunosComNota;
+
     }
     function obterTotalDeParticipantes(){
         return participantes.length;
     }
     function verificarSeParticipanteEstaAprovado(email){
         //implemente o código necessário
+        for(let i = 0; i < participantes.length; i++){
+            if(participantes[i].email === email){
+                if(participantes[i].nota >= 70)
+                    return true;
+                else 
+                    return false;
+            }
+        }
     }
     function obterQuantidadeDeParticipantesPorSexo(sexo){
         //implemente o código necessário
-    }
+        var totalParticipantesPorSexo = 0;
+        for(let i = 0; i < participantes.length; i++){            
+            if (participantes[i].sexo === sexo){
+                totalParticipantesPorSexo += 1;    
+            }            
+        }  
+        return totalParticipantesPorSexo;
+    } 
 
     return {
         adicionarParticipante,
