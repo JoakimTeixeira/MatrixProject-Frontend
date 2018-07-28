@@ -102,13 +102,13 @@ function SistemaCadastro() {
     }
     function obterMediaDasNotasDosParticipantes(){
         //implemente o código necessário
-        var mediaDosParticipantes = 0;
+        var somaDosParticipantes = 0;
         var totalAlunosComNota = 0;
         for(let i = 0; i < participantes.length; i++){
-                mediaDosParticipantes += participantes[i].nota;
+                somaDosParticipantes += participantes[i].nota;
                 totalAlunosComNota ++;
         }
-        return mediaDosParticipantes / totalAlunosComNota;
+        return somaDosParticipantes / totalAlunosComNota;
 
     }
     function obterTotalDeParticipantes(){
