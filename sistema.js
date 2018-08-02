@@ -37,103 +37,97 @@ function SistemaCadastro() {
 
     function removerParticipante(email) {
         //implemente o código necessário
-        for(let i = 0; i < participantes.length; i++){
-            if (participantes[i].email === email){
-                participantes.splice(i, 1);
-            }
-        }      
+        function filtrarPorEmail(dadosParticipante){
+            return dadosParticipante.email === email;
+        }
+
+        return participantes.splice( participantes.findIndex( filtrarPorEmail ), 1);
     }
     function buscarParticipantesPorNome(nome){
         //implemente o código necessário
-        var listaParticipantesPorNome = [];
-        for(let i = 0; i < participantes.length; i++){            
-            if (participantes[i].nome === nome){
-                listaParticipantesPorNome.push(participantes[i]);
-            }
-        }          
-        return listaParticipantesPorNome;
+        function filtrarPorNome(dadosParticipante){
+            return dadosParticipante.nome === nome;
+        }
+
+        return participantes.filter(filtrarPorNome);        
     }    
     function buscarParticipantesPorSexo(sexo){
         //implemente o código necessário
-        var listaParticipantesPorSexo = [];
-        for(let i = 0; i < participantes.length; i++){ 
-            if (participantes[i].sexo === sexo){                
-                listaParticipantesPorSexo.push(participantes[i]); 
-            }
-        }  
-        return listaParticipantesPorSexo;
+        function filtrarPorSexo(dadosParticipante){
+            return dadosParticipante.sexo === sexo;
+        }
+
+        return participantes.filter(filtrarPorSexo);        
     }
     function buscarParticipantesAprovados(){
         //implemente o código necessário
-        var listaParticipantesAprovados = [];
-        for(let i = 0; i < participantes.length; i++){
-            if(verificarSeParticipanteEstaAprovado(participantes[i].email) == true){
-                listaParticipantesAprovados.push(participantes[i]);
-            }          
-        }        
-        return listaParticipantesAprovados;
-    }
+        function verificarAprovacao(dadosParticipante){
+            return verificarSeParticipanteEstaAprovado(dadosParticipante.email) ? dadosParticipante : undefined;
+        }
+
+        return participantes.filter(verificarAprovacao);
+    }       
     function buscarParticipantesReprovados(){
         //implemente o código necessário
-        var listaParticipantesReprovados = [];  
-        for(let i = 0; i < participantes.length; i++){
-            if(verificarSeParticipanteEstaAprovado(participantes[i].email) == false){
-                listaParticipantesReprovados.push(participantes[i]);
-            }          
-        }        
-        return listaParticipantesReprovados;     
+        function filtrarReprovados(dadosParticipante){
+            return dadosParticipante.aprovado === false;
+        }
+
+        return participantes.filter(filtrarReprovados);     
     }
     function obterParticipante(email){
         //implemente o código necessário
-        for(let i = 0; i < participantes.length; i++){
-            if (participantes[i].email === email){
-                return participantes[i];
-            }
+        function filtrarParticipante(dadosParticipante){
+            return dadosParticipante.email === email;
         }
+
+        return participantes.find(filtrarParticipante);
     }
     function adicionarNotaAoParticipante(email, nota){
         //implemente o código necessário   
-        for(let i = 0; i < participantes.length; i++){
-            if(participantes[i].email === email){
-                participantes[i].nota = nota;
-            }
+        function adicionarNota(dadosParticipante){
+            dadosParticipante.email === email ? dadosParticipante.nota = nota : undefined;
         }
-         
+        
+        participantes.find(adicionarNota);      
     }
     function obterMediaDasNotasDosParticipantes(){
         //implemente o código necessário
-        var somaDosParticipantes = 0;
-        var totalAlunosComNota = 0;
-        for(let i = 0; i < participantes.length; i++){
-                somaDosParticipantes += participantes[i].nota;
-                totalAlunosComNota ++;
+        function calcularSomaParticipantes(somaDosParticipantes, dadosParticipante){
+            return somaDosParticipantes + dadosParticipante.nota;
         }
-        return somaDosParticipantes / totalAlunosComNota;
 
+        return participantes.reduce(calcularSomaParticipantes, 0) / participantes.length;
     }
     function obterTotalDeParticipantes(){
         return participantes.length;
     }
     function verificarSeParticipanteEstaAprovado(email){
         //implemente o código necessário
-        for(let i = 0; i < participantes.length; i++){
-            if(participantes[i].email === email){
-                if(participantes[i].nota >= 70)
+        function verificarAprovacao(dadosParticipante){
+            if(dadosParticipante.email === email){
+                if(dadosParticipante.nota >= 70){
+                    dadosParticipante.aprovado = true;
                     return true;
-                else 
+                }
+                else{
+                    dadosParticipante.aprovado = false;
                     return false;
+                }
             }
-        }
+        };
+
+        return participantes.find(verificarAprovacao);
     }
     function obterQuantidadeDeParticipantesPorSexo(sexo){
         //implemente o código necessário
-        var totalParticipantesPorSexo = 0;
-        for(let i = 0; i < participantes.length; i++){            
-            if (participantes[i].sexo === sexo){
-                totalParticipantesPorSexo += 1;    
-            }            
-        }  
-        return totalParticipantesPorSexo;
+        function contarPorSexo(totalPorSexo, dadosParticipante){
+            if(dadosParticipante.sexo === sexo)
+                totalPorSexo += 1;               
+            return totalPorSexo;
+        }
+
+        return participantes.reduce(contarPorSexo, 0);
     } 
 
     return {
