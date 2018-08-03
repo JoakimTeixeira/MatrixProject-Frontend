@@ -1,13 +1,11 @@
 var sistema = new SistemaCadastro();
 
 function verificarSexo(){
-    var sexo = 0;
-
-    if(document.getElementById("maculino").checked = true)
-        return sexo = document.getElementById("maculino").value;
+    if(document.getElementById("maculino").checked === true)
+        return document.getElementById("maculino").value;
     else
-        if(document.getElementById("feminino").checked = true)
-            return sexo = document.getElementById("feminino").value;       
+        if(document.getElementById("feminino").checked === true)
+            return document.getElementById("feminino").value;       
 }
 
 function adicionar(sexo){
