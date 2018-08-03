@@ -38,12 +38,13 @@ function enviarParaLocalStorage(){
     var aprovacaoVerificada = verificarAprovado();
 
     var formulario = {
-        nome: sistema.participante.nome,
-        sobrenome: sistema.participante.sobrenome,
-        email: sistema.participante.email,
-        idade: sistema.participante.idade,
-        nota: sistema.partipante.nota,
-        aprovado: verificarAprovado()
+        nome: sistema.participantes.nome,
+        sobrenome: sistema.participantes.sobrenome,
+        email: sistema.participantes.email,
+        idade: sistema.participantes.idade,
+        nota: sistema.partipantes.nota,
+        sexo: sexoVerificado,
+        aprovado: aprovacaoVerificada,
     }
 
     localStorage.setItem ("formulario", JSON.stringify(formulario));
