@@ -14,25 +14,24 @@ function adicionar(sexo){
         document.getElementById("sobrenome").value,
         document.getElementById("email").value,
         document.getElementById("idade").value,
-        sexo        
+        document.getElementById("nota").value,
+        sexo       
     );
 }    
 
-function verificarAprovado(){
-    var aprovado = 0;
-    
-    sistema.dicionarNotaAoParticipante(document.getElementById("email").value, document.getElementById("nota").value);
+function verificarAprovado(){  
+    sistema.adicionarNotaAoParticipante(document.getElementById("email").value, document.getElementById("nota").value);
 
     if (sistema.verificarSeParticipanteEstaAprovado(document.getElementById("email").value) === true)
-        return aprovado = aprovado;
+        return aprovado;
     else
         if (sistema.verificarSeParticipanteEstaAprovado(document.getElementById("email").value) === false)
-            return aprovado = reprovado;
+            return reprovado;
 }
 
 function enviarParaLocalStorage(){
     var sexoVerificado = verificarSexo();
-    adicionar(sexo) = sexoVerificado;
+    adicionar(sexoVerificado);
     var aprovacaoVerificada = verificarAprovado();
 
     var formulario = {
