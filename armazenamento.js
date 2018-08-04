@@ -23,25 +23,24 @@ function adicionar(){
 function verificarAprovado(){ 
     sistema.adicionarNotaAoParticipante(sistema.participantes[indice].email, document.getElementById("nota").value);    
 
-    if (sistema.verificarSeParticipanteEstaAprovado(sistema.participantes.email) === true)
-        return aprovado;
+    if (sistema.verificarSeParticipanteEstaAprovado(sistema.participantes[indice].email) === true)
+        sistema.partipantes[indice].aprovado = "aprovado";
     else
-        if (sistema.verificarSeParticipanteEstaAprovado(sistema.participantes.email) === false)
-            return reprovado;    
+        if (sistema.verificarSeParticipanteEstaAprovado(sistema.participantes[indice].email) === false)
+            sistema.partipantes[indice].aprovado = "reprovado";;    
 }
 
 function enviarParaLocalStorage(){
-    adicionar();
-    var aprovacaoVerificada = verificarAprovado();
+    adicionar();    
 
     var formulario = {
-        nome: sistema.participantes.nome,
-        sobrenome: sistema.participantes.sobrenome,
-        email: sistema.participantes.email,
-        idade: sistema.participantes.idade,
-        nota: sistema.partipantes.nota,
-        sexo: sexoVerificado,
-        aprovado: aprovacaoVerificada,
+        nome: sistema.participantes[indice].nome,
+        sobrenome: sistema.participantes[indice].sobrenome,
+        email: sistema.participantes[indice].email,
+        idade: sistema.participantes[indice].idade,
+        nota: sistema.partipantes[indice].nota,
+        sexo: sistema.partipantes[indice].sexo,
+        aprovado: sistema.partipantes[indice].aprovado,
     }
 
     localStorage.setItem ("formulario", JSON.stringify(formulario));
