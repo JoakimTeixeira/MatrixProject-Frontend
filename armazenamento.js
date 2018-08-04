@@ -33,9 +33,9 @@ function enviarParaLocalStorage(){
         sobrenome: sistema.participantes[indice].sobrenome,
         email: sistema.participantes[indice].email,
         idade: sistema.participantes[indice].idade,
-        nota: sistema.partipantes[indice].nota,
-        sexo: sistema.partipantes[indice].sexo,
-        aprovado: sistema.partipantes[indice].aprovado,
+        nota: sistema.participantes[indice].nota,
+        sexo: sistema.participantes[indice].sexo,
+        aprovado: sistema.participantes[indice].aprovado,
     }
 
     localStorage.setItem ("formulario", JSON.stringify(formulario));
