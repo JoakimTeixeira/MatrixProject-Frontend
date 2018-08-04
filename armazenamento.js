@@ -26,7 +26,8 @@ function verificarAprovado(){
 }
 
 function enviarParaLocalStorage(){
-    adicionar();    
+    adicionar();  
+    verificarAprovado();  
 
     var formulario = {
         nome: sistema.participantes[indice].nome,
