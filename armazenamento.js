@@ -21,13 +21,8 @@ function adicionar(){
 }    
 
 function verificarAprovado(){ 
-    sistema.adicionarNotaAoParticipante(sistema.participantes[indice].email, document.getElementById("nota").value);    
-
-    if (sistema.verificarSeParticipanteEstaAprovado(sistema.participantes[indice].email) === true)
-        sistema.partipantes[indice].aprovado = "aprovado";
-    else
-        if (sistema.verificarSeParticipanteEstaAprovado(sistema.participantes[indice].email) === false)
-            sistema.partipantes[indice].aprovado = "reprovado";;    
+    sistema.adicionarNotaAoParticipante(sistema.participantes[indice].email, document.getElementById("nota").value);   
+    sistema.verificarSeParticipanteEstaAprovado(sistema.participantes[indice].email);        
 }
 
 function enviarParaLocalStorage(){
