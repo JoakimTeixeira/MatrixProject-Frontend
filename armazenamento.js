@@ -1,5 +1,7 @@
 var sistema = new SistemaCadastro();
 
+var indice = 0;
+
 function verificarSexo(){
     if(document.getElementById("masculino").checked === true)
         return "masculino";
@@ -8,30 +10,28 @@ function verificarSexo(){
             return "feminino";       
 }
 
-function adicionar(sexo){
+function adicionar(){
     sistema.adicionarParticipante(
         document.getElementById("nome").value,
         document.getElementById("sobrenome").value,
         document.getElementById("email").value,
         document.getElementById("idade").value,
-        document.getElementById("nota").value,
-        sexo       
-    );
+        verificarSexo()      
+    );    
 }    
 
-function verificarAprovado(){  
-    sistema.adicionarNotaAoParticipante(document.getElementById("email").value, document.getElementById("nota").value);
+function verificarAprovado(){ 
+    sistema.adicionarNotaAoParticipante(sistema.participantes[indice].email, document.getElementById("nota").value);    
 
-    if (sistema.verificarSeParticipanteEstaAprovado(document.getElementById("email").value) === true)
+    if (sistema.verificarSeParticipanteEstaAprovado(sistema.participantes.email) === true)
         return aprovado;
     else
-        if (sistema.verificarSeParticipanteEstaAprovado(document.getElementById("email").value) === false)
-            return reprovado;
+        if (sistema.verificarSeParticipanteEstaAprovado(sistema.participantes.email) === false)
+            return reprovado;    
 }
 
 function enviarParaLocalStorage(){
-    var sexoVerificado = verificarSexo();
-    adicionar(sexoVerificado);
+    adicionar();
     var aprovacaoVerificada = verificarAprovado();
 
     var formulario = {
@@ -45,6 +45,7 @@ function enviarParaLocalStorage(){
     }
 
     localStorage.setItem ("formulario", JSON.stringify(formulario));
+    indice++;
 }
     
     //teste local storage
