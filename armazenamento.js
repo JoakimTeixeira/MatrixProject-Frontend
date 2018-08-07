@@ -1,6 +1,7 @@
 var sistema = new SistemaCadastro();
 
 var indice = 0;
+var formulario = [];
 
 function verificarSexo(){
     if(document.getElementById("masculino").checked === true)
@@ -29,15 +30,17 @@ function enviarParaLocalStorage(){
     adicionar();  
     verificarAprovado();  
 
-    var formulario = {
+    var formParticipante = {
         nome: sistema.participantes[indice].nome,
         sobrenome: sistema.participantes[indice].sobrenome,
         email: sistema.participantes[indice].email,
         idade: sistema.participantes[indice].idade,
         nota: sistema.participantes[indice].nota,
         sexo: sistema.participantes[indice].sexo,
-        aprovado: sistema.participantes[indice].aprovado,
-    }
+        aprovado: sistema.participantes[indice].aprovado
+    }  
+    
+    formulario.push(formParticipante);
 
     localStorage.setItem ("formulario", JSON.stringify(formulario));
     indice++;
