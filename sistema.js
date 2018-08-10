@@ -17,7 +17,7 @@ function Participante() {
 function SistemaCadastro() {
 
     //Onde os participantes ficarão armazenados
-    var participantes = [];
+    const armazenamento = new Armazenamento("participantes");
 
     function adicionarParticipante(nome, sobrenome, email, idade, sexo) {
         //implemente o código necessário
@@ -29,11 +29,13 @@ function SistemaCadastro() {
             p.idade = idade;
             p.sexo = sexo;
 
-            participantes.push(p);
+            armazenamento.adicionar(p);
         }
         else
             throw ("Este email já existe: " + email);
     }
+
+    //--------> implementar funções abaixo para usar armazenamento
 
     function removerParticipante(email) {
         //implemente o código necessário
@@ -43,6 +45,7 @@ function SistemaCadastro() {
 
         return participantes.splice( participantes.findIndex( filtrarPorEmail ), 1);
     }
+
     function buscarParticipantesPorNome(nome){
         //implemente o código necessário
         function filtrarPorNome(dadosParticipante){
@@ -51,6 +54,7 @@ function SistemaCadastro() {
 
         return participantes.filter(filtrarPorNome);        
     }    
+
     function buscarParticipantesPorSexo(sexo){
         //implemente o código necessário
         function filtrarPorSexo(dadosParticipante){
@@ -59,6 +63,7 @@ function SistemaCadastro() {
 
         return participantes.filter(filtrarPorSexo);        
     }
+
     function buscarParticipantesAprovados(){
         //implemente o código necessário
         function verificarAprovacao(dadosParticipante){
@@ -67,6 +72,7 @@ function SistemaCadastro() {
 
         return participantes.filter(verificarAprovacao);
     }       
+
     function buscarParticipantesReprovados(){
         //implemente o código necessário
         function filtrarReprovados(dadosParticipante){
@@ -75,14 +81,12 @@ function SistemaCadastro() {
 
         return participantes.filter(filtrarReprovados);     
     }
+
     function obterParticipante(email){
         //implemente o código necessário
-        function filtrarParticipante(dadosParticipante){
-            return dadosParticipante.email === email;
-        }
-
-        return participantes.find(filtrarParticipante);
+        return armazenamento.buscarParticipante(email);
     }
+
     function adicionarNotaAoParticipante(email, nota){
         //implemente o código necessário   
         function adicionarNota(dadosParticipante){
@@ -91,6 +95,7 @@ function SistemaCadastro() {
         
         participantes.find(adicionarNota);      
     }
+
     function obterMediaDasNotasDosParticipantes(){
         //implemente o código necessário
         function calcularSomaParticipantes(somaDosParticipantes, dadosParticipante){
@@ -99,9 +104,11 @@ function SistemaCadastro() {
 
         return participantes.reduce(calcularSomaParticipantes, 0) / participantes.length;
     }
+
     function obterTotalDeParticipantes(){
         return participantes.length;
     }
+
     function verificarSeParticipanteEstaAprovado(email){
         //implemente o código necessário
         function verificarAprovacao(dadosParticipante){
@@ -119,6 +126,7 @@ function SistemaCadastro() {
 
         return participantes.find(verificarAprovacao);
     }
+
     function obterQuantidadeDeParticipantesPorSexo(sexo){
         //implemente o código necessário
         function contarPorSexo(totalPorSexo, dadosParticipante){
@@ -142,7 +150,6 @@ function SistemaCadastro() {
         obterMediaDasNotasDosParticipantes,
         obterTotalDeParticipantes,
         verificarSeParticipanteEstaAprovado,
-        obterQuantidadeDeParticipantesPorSexo,
-        participantes
+        obterQuantidadeDeParticipantesPorSexo
     };
 }

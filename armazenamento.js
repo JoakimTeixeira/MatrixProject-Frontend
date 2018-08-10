@@ -1,56 +1,35 @@
-var sistema = new SistemaCadastro();
+function Armazenamento(identificador){
 
-//implementar
-const SEXO = {
-    '1': "Masculino",
-    '2': "Feminino"
+    if(localStorage.getItem(identificador) === null)
+        localStorage.setItem(identificador, "[]");
+
+    function adicionar(participante){
+        
+        var conjuntoParticipantes = deserializar();
+        conjuntoParticipantes.push(participante);
+        serializar(conjuntoParticipantes);
+        
+    }
+
+    function buscarParticipante(email){
+        var participante = deserializar();
+        return participante.reduce(filtrarParticipante, 0);
+
+        function filtrarParticipante(dadosParticipante, indice){
+            return dadosParticipante[indice].email === email;
+        }
+    }
+
+    function deserializar(){
+        return JSON.parse (localStorage.getItem(identificador));
+    }
+
+    function serializar(participante){
+        localStorage.setItem(identificador, JSON.stringify(participante));
+    }
+
+    return {
+        adicionar,
+        buscarParticipante
+    }
 };
-
-var indice = 0;
-var formulario = [];
-
-function verificarSexo(){
-    if(document.getElementById("masculino").checked === true)
-        return "masculino";
-    else
-        if(document.getElementById("feminino").checked === true)
-            return "feminino";       
-}
-
-function adicionar(){
-    sistema.adicionarParticipante(
-        document.getElementById("nome").value,
-        document.getElementById("sobrenome").value,
-        document.getElementById("email").value,
-        document.getElementById("idade").value,
-        verificarSexo()      
-    );    
-}    
-
-function verificarAprovado(){ 
-    sistema.adicionarNotaAoParticipante(sistema.participantes[indice].email, document.getElementById("nota").value);   
-    sistema.verificarSeParticipanteEstaAprovado(sistema.participantes[indice].email);        
-}
-
-function enviarParaLocalStorage(){
-    adicionar();  
-    verificarAprovado();  
-
-    var formParticipante = {
-        nome: sistema.participantes[indice].nome,
-        sobrenome: sistema.participantes[indice].sobrenome,
-        email: sistema.participantes[indice].email,
-        idade: sistema.participantes[indice].idade,
-        nota: sistema.participantes[indice].nota,
-        sexo: sistema.participantes[indice].sexo,
-        aprovado: sistema.participantes[indice].aprovado
-    }  
-    
-    formulario.push(formParticipante);
-
-    localStorage.setItem ("formulario", JSON.stringify(formulario));
-    indice++;
-}
-    
-    //teste local storage
-    //localStorage.setItem("email", document.getElementById("email").value);    
