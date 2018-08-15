@@ -1,35 +1,48 @@
-function Armazenamento(identificador){
+function Armazenamento(key){
 
-    if(localStorage.getItem(identificador) === null)
-        localStorage.setItem(identificador, "[]");
+    if(window.localStorage.getItem(key) === null)
+        window.localStorage.setItem(key, "[]");
 
-    function adicionar(participante){
-        
+    function adicionar(participante){ 
+
         var conjuntoParticipantes = deserializar();
         conjuntoParticipantes.push(participante);
-        serializar(conjuntoParticipantes);
-        
+        serializar(conjuntoParticipantes);   
+
     }
 
-    function buscarParticipante(email){
+    function buscarParticipante(key, atributo){
         var participante = deserializar();
-        return participante.reduce(filtrarParticipante, 0);
+        return participante.find(filtrarParticipante);
 
-        function filtrarParticipante(dadosParticipante, indice){
-            return dadosParticipante[indice].email === email;
+        function filtrarParticipante(dadosParticipante){
+            return dadosParticipante[key] === atributo;
         }
     }
 
+    function editar(key, array){
+        var novoArray = deserializar();
+		var indiceObjeto = novoArray.findIndex(localizarObjeto);
+
+        function localizarObjeto(objeto){
+            return objeto[key] === array[key];
+        }
+        
+		novoArray[indiceObjeto] = array;
+		serializar(novoArray);
+    }
+
     function deserializar(){
-        return JSON.parse (localStorage.getItem(identificador));
+        return JSON.parse (window.localStorage.getItem(key));
     }
 
     function serializar(participante){
-        localStorage.setItem(identificador, JSON.stringify(participante));
+        window.localStorage.setItem(key, JSON.stringify(participante));
     }
 
     return {
         adicionar,
-        buscarParticipante
+        buscarParticipante,
+        editar
     }
 };

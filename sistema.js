@@ -83,17 +83,20 @@ function SistemaCadastro() {
     }
 
     function obterParticipante(email){
-        //implemente o código necessário
-        return armazenamento.buscarParticipante(email);
+        //implemente o código necessário                                  --> ok
+        return armazenamento.buscarParticipante("email", email);
     }
 
     function adicionarNotaAoParticipante(email, nota){
-        //implemente o código necessário   
-        function adicionarNota(dadosParticipante){
-            dadosParticipante.email === email ? dadosParticipante.nota = nota : undefined;
-        }
-        
-        participantes.find(adicionarNota);      
+        //implemente o código necessário                                  --> ok
+        var participante = obterParticipante(email);
+		adicionarNota(participante, nota);
+        armazenamento.editar("email", participante);      
+    }
+
+    function adicionarNota(participante, nota){                             //--> ok
+        participante.nota = nota;
+		participante.aprovado = participante.nota >= 70; 
     }
 
     function obterMediaDasNotasDosParticipantes(){
