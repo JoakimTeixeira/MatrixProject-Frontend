@@ -38,7 +38,7 @@ function SistemaCadastro() {
     //--------> implementar funções abaixo para usar armazenamento
 
     function removerParticipante(email) {
-        //implemente o código necessário
+        //implemente o código necessário                                
         function filtrarPorEmail(dadosParticipante){
             return dadosParticipante.email === email;
         }
@@ -47,54 +47,38 @@ function SistemaCadastro() {
     }
 
     function buscarParticipantesPorNome(nome){
-        //implemente o código necessário
-        function filtrarPorNome(dadosParticipante){
-            return dadosParticipante.nome === nome;
-        }
-
-        return participantes.filter(filtrarPorNome);        
+        //implemente o código necessário                                --> ok
+        return armazenamento.buscarParticipante("nome", nome);       
     }    
 
     function buscarParticipantesPorSexo(sexo){
-        //implemente o código necessário
-        function filtrarPorSexo(dadosParticipante){
-            return dadosParticipante.sexo === sexo;
-        }
-
-        return participantes.filter(filtrarPorSexo);        
+        //implemente o código necessário                                --> ok
+        return armazenamento.buscarParticipante("sexo", sexo); 
     }
 
     function buscarParticipantesAprovados(){
-        //implemente o código necessário
-        function verificarAprovacao(dadosParticipante){
-            return verificarSeParticipanteEstaAprovado(dadosParticipante.email) ? dadosParticipante : undefined;
-        }
-
-        return participantes.filter(verificarAprovacao);
+        //implemente o código necessário                                --> ok
+        return armazenamento.buscarParticipante("aprovado", true); 
     }       
 
     function buscarParticipantesReprovados(){
-        //implemente o código necessário
-        function filtrarReprovados(dadosParticipante){
-            return dadosParticipante.aprovado === false;
-        }
-
-        return participantes.filter(filtrarReprovados);     
+        //implemente o código necessário                                --> ok
+        return armazenamento.buscarParticipante("reprovado", false); 
     }
 
     function obterParticipante(email){
-        //implemente o código necessário                                  --> ok
+        //implemente o código necessário                                --> ok
         return armazenamento.buscarParticipante("email", email);
     }
 
     function adicionarNotaAoParticipante(email, nota){
-        //implemente o código necessário                                  --> ok
+        //implemente o código necessário                                --> ok
         var participante = obterParticipante(email);
 		adicionarNota(participante, nota);
         armazenamento.editar("email", participante);      
     }
 
-    function adicionarNota(participante, nota){                             //--> ok
+    function adicionarNota(participante, nota){                       //--> ok
         participante.nota = nota;
 		participante.aprovado = participante.nota >= 70; 
     }
@@ -109,25 +93,7 @@ function SistemaCadastro() {
     }
 
     function obterTotalDeParticipantes(){
-        return participantes.length;
-    }
-
-    function verificarSeParticipanteEstaAprovado(email){
-        //implemente o código necessário
-        function verificarAprovacao(dadosParticipante){
-            if(dadosParticipante.email === email){
-                if(dadosParticipante.nota >= 70){
-                    dadosParticipante.aprovado = true;
-                    return true;
-                }
-                else{
-                    dadosParticipante.aprovado = false;
-                    return false;
-                }
-            }
-        };
-
-        return participantes.find(verificarAprovacao);
+        return armazenamento.deserializar().length;                    //--> ok
     }
 
     function obterQuantidadeDeParticipantesPorSexo(sexo){
