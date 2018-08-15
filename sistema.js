@@ -117,8 +117,7 @@ function SistemaCadastro() {
         obterParticipante,
         adicionarNotaAoParticipante,
         obterMediaDasNotasDosParticipantes,
-        obterTotalDeParticipantes,
-        verificarSeParticipanteEstaAprovado,
+        obterTotalDeParticipantes, 
         obterQuantidadeDeParticipantesPorSexo
     };
 }
