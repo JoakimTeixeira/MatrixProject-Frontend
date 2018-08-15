@@ -1,10 +1,10 @@
 var sistema = new SistemaCadastro();
 
-function editarDados(email){};
+function editarDados(email){}; //implementar função
 
-function excluirDados(email){};
+function excluirDados(email){};  //implementar função
 
-function mostrarDadosNaTabela(){};
+function mostrarDadosNaTabela(){};  //implementar função
 
 function verificarSexo(){
     if(document.getElementById("masculino").checked === true)
