@@ -32,6 +32,17 @@ function Armazenamento(key){
 		serializar(novoArray);
     }
 
+    function remover(key, atributo){
+		var novoArray = deserializar();
+		novoArray.splice(novoArray.findIndex( removerObjeto, 1 ));
+
+        function removerObjeto(objeto){
+            return objeto[key] === atributo;
+        }
+        
+		serializar(novoArray);
+	}
+
     function deserializar(){
         return JSON.parse (window.localStorage.getItem(key));
     }
@@ -43,6 +54,7 @@ function Armazenamento(key){
     return {
         adicionar,
         buscarParticipante,
-        editar
+        editar,
+        remover
     }
 };

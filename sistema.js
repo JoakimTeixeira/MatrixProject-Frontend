@@ -35,76 +35,64 @@ function SistemaCadastro() {
             throw ("Este email já existe: " + email);
     }
 
-    //--------> implementar funções abaixo para usar armazenamento
-
     function removerParticipante(email) {
         //implemente o código necessário                                
-        function filtrarPorEmail(dadosParticipante){
-            return dadosParticipante.email === email;
-        }
-
-        return participantes.splice( participantes.findIndex( filtrarPorEmail ), 1);
+        armazenamento.remover("email",email); 
     }
 
     function buscarParticipantesPorNome(nome){
-        //implemente o código necessário                                --> ok
+        //implemente o código necessário                                
         return armazenamento.buscarParticipante("nome", nome);       
     }    
 
     function buscarParticipantesPorSexo(sexo){
-        //implemente o código necessário                                --> ok
+        //implemente o código necessário                                
         return armazenamento.buscarParticipante("sexo", sexo); 
     }
 
     function buscarParticipantesAprovados(){
-        //implemente o código necessário                                --> ok
+        //implemente o código necessário                                
         return armazenamento.buscarParticipante("aprovado", true); 
     }       
 
     function buscarParticipantesReprovados(){
-        //implemente o código necessário                                --> ok
+        //implemente o código necessário                                
         return armazenamento.buscarParticipante("reprovado", false); 
     }
 
     function obterParticipante(email){
-        //implemente o código necessário                                --> ok
+        //implemente o código necessário                                
         return armazenamento.buscarParticipante("email", email);
     }
 
     function adicionarNotaAoParticipante(email, nota){
-        //implemente o código necessário                                --> ok
+        //implemente o código necessário                                
         var participante = obterParticipante(email);
 		adicionarNota(participante, nota);
         armazenamento.editar("email", participante);      
     }
 
-    function adicionarNota(participante, nota){                       //--> ok
+    function adicionarNota(participante, nota){                       
         participante.nota = nota;
 		participante.aprovado = participante.nota >= 70; 
     }
 
     function obterMediaDasNotasDosParticipantes(){
-        //implemente o código necessário
+        //implemente o código necessário                                
         function calcularSomaParticipantes(somaDosParticipantes, dadosParticipante){
             return somaDosParticipantes + dadosParticipante.nota;
         }
 
-        return participantes.reduce(calcularSomaParticipantes, 0) / participantes.length;
+        return armazenamento.serializar().reduce(calcularSomaParticipantes, 0) / obterTotalDeParticipantes();
     }
 
     function obterTotalDeParticipantes(){
-        return armazenamento.deserializar().length;                    //--> ok
+        return armazenamento.deserializar().length;                   
     }
 
     function obterQuantidadeDeParticipantesPorSexo(sexo){
         //implemente o código necessário
-        function contarPorSexo(totalPorSexo, dadosParticipante){
-            if(dadosParticipante.sexo === sexo)
-                totalPorSexo += 1;               
-            return totalPorSexo;
-        }
-
-        return participantes.reduce(contarPorSexo, 0);
+        return buscarParticipantesPorSexo(sexo).length;
     } 
 
     return {
