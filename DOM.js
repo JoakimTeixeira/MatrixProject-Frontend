@@ -4,7 +4,14 @@ function editarDados(email){}; //implementar função
 
 function excluirDados(email){};  //implementar função
 
-function mostrarDadosNaTabela(){};  //implementar função
+function mostrarDadosNaTabela(){  //implementar função
+    sistema.obterParticipantes().forEach(imprimirTabela);
+
+    function imprimirTabela(participante, indice){
+        
+    }
+
+};  
 
 function verificarCampo(){} //não consigo verificar campo nulo
  

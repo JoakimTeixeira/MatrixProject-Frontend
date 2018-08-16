@@ -65,6 +65,10 @@ function SistemaCadastro() {
         return armazenamento.buscarParticipante("email", email);
     }
 
+    function obterParticipantes(){
+        return sistema.deserializar();
+    }
+
     function adicionarNotaAoParticipante(email, nota){
         //implemente o código necessário                                
         var participante = obterParticipante(email);
@@ -103,6 +107,7 @@ function SistemaCadastro() {
         buscarParticipantesAprovados,
         buscarParticipantesReprovados,
         obterParticipante,
+        obterParticipantes,
         adicionarNotaAoParticipante,
         obterMediaDasNotasDosParticipantes,
         obterTotalDeParticipantes, 
