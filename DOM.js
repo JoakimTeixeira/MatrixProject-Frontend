@@ -6,6 +6,21 @@ function excluirDados(email){};  //implementar função
 
 function mostrarDadosNaTabela(){};  //implementar função
 
+function verificarCampo(){
+    if(
+        document.getElementById("nome").value === null ||
+        document.getElementById("sobrenome").value === null ||
+        document.getElementById("email").value === null ||
+        document.getElementById("idade").value === null ||
+        verificarSexo() === undefined      
+    )
+    document.getElementById("submit").disabled = true;
+    
+    else
+        document.getElementById("submit").disabled = false
+
+}
+
 function verificarSexo(){
     if(document.getElementById("masculino").checked === true)
         return 1;
@@ -15,6 +30,7 @@ function verificarSexo(){
 };
 
 function capturarParticipantes(){
+    verificarCampo();
       
     sistema.adicionarParticipante(
         document.getElementById("nome").value,
@@ -28,5 +44,6 @@ function capturarParticipantes(){
         document.getElementById("email").value, 
         document.getElementById("nota").value
     );
+
     window.location.reload(true);
 }
