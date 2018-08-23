@@ -35,9 +35,25 @@ function SistemaCadastro() {
             throw ("Este email já existe: " + email);
     }
 
-    function removerParticipante(email) {
+    function editarParticipante(nome, sobrenome, email, idade, sexo, nota){
+        
+        var participante = obterParticipante(email);
+        participante.nome = nome;
+        participante.sobrenome = sobrenome;
+        participante.idade = idade;
+        participante.sexo = sexo;
+
+        adicionarNota(participante, nota);
+        armazenamento.editar("email", participante);
+    }
+
+    function removerParticipante(email){
         //implemente o código necessário                                
         armazenamento.remover("email",email); 
+    }
+
+    function obterParticipantes(){
+        return armazenamento.obterTodosParticipantes();
     }
 
     function buscarParticipantesPorNome(nome){
@@ -63,10 +79,6 @@ function SistemaCadastro() {
     function obterParticipante(email){
         //implemente o código necessário                                
         return armazenamento.buscarParticipante("email", email);
-    }
-
-    function obterParticipantes(){
-        return sistema.deserializar();
     }
 
     function adicionarNotaAoParticipante(email, nota){
@@ -111,6 +123,7 @@ function SistemaCadastro() {
         adicionarNotaAoParticipante,
         obterMediaDasNotasDosParticipantes,
         obterTotalDeParticipantes, 
-        obterQuantidadeDeParticipantesPorSexo
+        obterQuantidadeDeParticipantesPorSexo,
+        editarParticipante
     };
 }

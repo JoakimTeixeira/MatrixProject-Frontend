@@ -72,18 +72,18 @@
               <legend class="col-form-label col-sm-2 pt-0">Sexo</legend>
               <div class="col-sm-4">
                 <div class="form-check form-check-inline" >
-                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="masculino" value="option1" >
+                  <input class="form-check-input" type="radio" name="sexo_radio" id="masculino" value="1" checked>
                   <label class="form-check-label" for="inlineRadio1">Masculino</label>
                 </div>
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="feminino" value="option2" required="">                     
+                  <input class="form-check-input" type="radio" name="sexo_radio" id="feminino" value="2">                     
                   <label class="form-check-label" for="inlineRadio2">Feminino</label>                     
                 </div> 
               </div>                     
             </div>                                 
         
           <hr class="mb-4">
-          <button onclick= "capturarParticipantes()" class="btn btn-primary btn-lg btn-block" id="cadastrar" type="submit">Cadastrar</button>
+          <button onclick= "cadastrarParticipantes()" class="btn btn-primary btn-lg btn-block" id="cadastrar" type="submit">Cadastrar</button>
         </form>
       </div>
     </div>    
@@ -99,7 +99,7 @@
               <th scope="col">Aprovado</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody id="tabela">
             <tr>
               <!-- retornar valores do localStorage-->
             </tr>
@@ -131,6 +131,9 @@
         // Loop over them and prevent submission
         var validation = Array.prototype.filter.call(forms, function(form) {
           form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+
             if (form.checkValidity() === false) {
               event.preventDefault();
               event.stopPropagation();

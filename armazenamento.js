@@ -11,6 +11,10 @@ function Armazenamento(key){
 
     }
 
+    function obterTodosParticipantes(){
+        return deserializar();
+    }
+
     function buscarParticipante(key, atributo){
         var participante = deserializar();
         return participante.find(filtrarParticipante);
@@ -47,12 +51,13 @@ function Armazenamento(key){
         return JSON.parse (window.localStorage.getItem(key));
     }
 
-    function serializar(participante){
-        window.localStorage.setItem(key, JSON.stringify(participante));
+    function serializar(array){
+        window.localStorage.setItem(key, JSON.stringify(array));
     }
 
     return {
         adicionar,
+        obterTodosParticipantes,
         buscarParticipante,
         editar,
         remover
