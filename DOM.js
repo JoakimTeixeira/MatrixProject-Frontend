@@ -30,7 +30,7 @@ function excluirDados(email){
 function mostrarDadosNaTabela(){
     sistema.obterParticipantes().forEach(imprimirTabela);
 
-    function imprimirTabela(participante, indice){
+    function imprimirTabela(participante){
 
         var sexo, aprovado;
         if (participante.sexo == 1)

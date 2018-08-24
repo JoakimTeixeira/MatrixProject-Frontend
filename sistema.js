@@ -17,7 +17,7 @@ function Participante() {
 function SistemaCadastro() {
 
     //Onde os participantes ficarão armazenados
-    const armazenamento = new Armazenamento("participantes");
+    const armazenamento = new ArmazenamentoHTTP();
 
     function adicionarParticipante(nome, sobrenome, email, idade, sexo) {
         //implemente o código necessário
