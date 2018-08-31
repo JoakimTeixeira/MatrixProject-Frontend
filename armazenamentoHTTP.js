@@ -1,30 +1,42 @@
-function ArmazenamentoHTTP(){
+
+function Armazenamento(){ 
+    
+    const Url = 'http://matrix.avalie.net/api/participantes/';
 
     function adicionar(participante){
-        axios.post('http://matrix.avalie.net/api/participantes/' + id, 
-        {
-            nome: participante.nome,
-            sobrenome: participante.sobrenome,
-            email: participante.email,
-            idade: participante.idade,
-            sexo: participante.sexo,
-            nota: participante.nota,
-            aprovado: participante.aprovado
-        });
-    }
-
-    function obterTodosParticipantes(){
-        axios.get('http://matrix.avalie.net/api/participantes/')
-            .then(function (response) {
-                
+        return axios.post(Url, participante)
+            .then(function (resultado){
+                return resultado.data;
+            })
+            .catch(function (error){
+                throw error.response.data.message;
             })
     }
-    
-    function buscarParticipante(key, atributo){}
 
-    function editar(key, array){}
+    function obterTodosParticipantes(){        
+        return axios.get(Url)
+            .then(function (resultado){
+                return resultado.data;
+            })
+    }
 
-    function remover(key, atributo){}
+    function buscarParticipante(id){
+        return axios.get(Url + id)
+			.then(function (resultado) {
+				return resultado.data;
+			});
+    }
+
+    function editar(participante){
+        return axios.put('http://matrix.avalie.net/api/participantes/' + participante.id, participante);
+    }
+
+    function remover(id){
+        return axios.delete(Url + id)
+        .then(function (resultado){
+            return resultado.data;
+        })
+    }
 
 
     return{

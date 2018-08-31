@@ -17,39 +17,40 @@ function Participante() {
 function SistemaCadastro() {
 
     //Onde os participantes ficarão armazenados
-    const armazenamento = new ArmazenamentoHTTP();
+    const armazenamento = new Armazenamento();
 
-    function adicionarParticipante(nome, sobrenome, email, idade, sexo) {
+    function adicionarParticipante(nome, sobrenome, email, idade, sexo, nota) {
         //implemente o código necessário
-        if (obterParticipante(email) === undefined){
+        
             var p = new Participante();
             p.nome = nome;
             p.sobrenome = sobrenome;
             p.email = email;
             p.idade = idade;
             p.sexo = sexo;
+            p.nota = nota;
+            p.aprovado = nota >= 70
 
-            armazenamento.adicionar(p);
-        }
-        else
-            throw ("Este email já existe: " + email);
+            return armazenamento.adicionar(p);
     }
 
-    function editarParticipante(nome, sobrenome, email, idade, sexo, nota){
+    function editarParticipante(id, nome, sobrenome, idade, sexo, nota){
         
-        var participante = obterParticipante(email);
-        participante.nome = nome;
-        participante.sobrenome = sobrenome;
-        participante.idade = idade;
-        participante.sexo = sexo;
+        return obterParticipante(id)
+            .then(function (participante){
+                participante.nome = nome;
+                participante.sobrenome = sobrenome;
+                participante.idade = idade;
+                participante.sexo = sexo;
 
-        adicionarNota(participante, nota);
-        armazenamento.editar("email", participante);
+                adicionarNota(participante, nota);
+                return armazenamento.editar(participante);
+            })     
     }
 
-    function removerParticipante(email){
+    function removerParticipante(id){
         //implemente o código necessário                                
-        armazenamento.remover("email",email); 
+        return armazenamento.remover(id); 
     }
 
     function obterParticipantes(){
@@ -76,9 +77,9 @@ function SistemaCadastro() {
         return armazenamento.buscarParticipante("reprovado", false); 
     }
 
-    function obterParticipante(email){
+    function obterParticipante(id){
         //implemente o código necessário                                
-        return armazenamento.buscarParticipante("email", email);
+        return armazenamento.buscarParticipante(id);
     }
 
     function adicionarNotaAoParticipante(email, nota){
